@@ -42,5 +42,6 @@ class WatchApp : Application() {
         builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
 
         scheduler.schedule(builder.build())
+        Timber.d("Job started")
     }
 }

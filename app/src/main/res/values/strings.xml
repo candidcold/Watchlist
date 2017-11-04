@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Watchlist</string>
+
+    <string name="tmdb_cast_member_base_url">http://image.tmdb.org/t/p/w185/</string>
+    <string name="tmdb_list_poster_base_url">http://image.tmdb.org/t/p/w342/</string>
+    <string name="tmdb_list_backdrop_base_url">http://image.tmdb.org/t/p/w780</string>
 </resources>

@@ -4,9 +4,11 @@ import android.app.Application
 import android.arch.persistence.room.Room
 import android.content.Context
 import com.candidcold.watchlist.BuildConfig
+import com.candidcold.watchlist.home.MainActivity
 import com.candidcold.watchlist.WatchApp
 import com.candidcold.watchlist.data.AppDatabase
 import com.candidcold.watchlist.data.MovieDao
+import com.candidcold.watchlist.home.discover.DiscoverFragment
 import com.candidcold.watchlist.jobscheduling.DiscoverJobService
 import com.candidcold.watchlist.network.TmdbClient
 import dagger.Component
@@ -26,6 +28,8 @@ import javax.inject.Singleton
 interface AppComponent {
 
     fun inject(target: DiscoverJobService)
+    fun inject(target: MainActivity)
+    fun inject(target: DiscoverFragment)
 
 }
 
