@@ -36,6 +36,8 @@ class MovieDetailActivity : AppCompatActivity() {
         ViewModelProviders.of(this, factory).get(MovieDetailViewModel::class.java)
     }
 
+    private var isOnWatchlist = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
@@ -44,12 +46,24 @@ class MovieDetailActivity : AppCompatActivity() {
         setSupportActionBar(detail_movie_toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
+        detail_fab.isEnabled = false
 
         val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, 0)
         observe(movieId)
     }
 
+    private fun setupClickListeners() {
+        // Will eventually be used when the cast is shown
+    }
+
     private fun observe(movieId: Int) {
+        viewModel.onWatchlist(movieId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    setFabIcon(it)
+                })
+
         viewModel.getMovieDetails(movieId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -62,6 +76,17 @@ class MovieDetailActivity : AppCompatActivity() {
                 })
     }
 
+    // Could possibly combine these two operations/streams into one bigger model of the screen
+    private fun setFabIcon(onWatchlist: Boolean) {
+        isOnWatchlist = onWatchlist
+        Timber.d("Is on the watchlist is updated with value $onWatchlist")
+        if (onWatchlist) {
+            detail_fab.setImageResource(R.drawable.ic_check_black_24dp)
+        } else {
+            detail_fab.setImageResource(R.drawable.ic_add)
+        }
+    }
+
     private fun setupMovieDetails(movie: NetworkMovie) {
         detail_movie_toolbar.title = movie.title
         detail_movie_toolbar.subtitle = movie.release_date
@@ -71,6 +96,25 @@ class MovieDetailActivity : AppCompatActivity() {
                 .load(backdropBaseUrl + movie.backdrop_path)
                 .crossFade()
                 .into(detail_movie_backdrop_image)
+
+        detail_fab.isEnabled = true
+        detail_fab.setOnClickListener {
+            addOrRemoveFromWatchlist(movie)
+        }
+    }
+
+    private fun addOrRemoveFromWatchlist(movie: NetworkMovie) {
+        if (isOnWatchlist) {
+            viewModel.removeMovieFromWatchlist(movie)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe { Timber.d("Removed ${movie.title} from watchlist") }
+        } else {
+            viewModel.addMovieToWatchlist(movie)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe { Timber.d("Added ${movie.title} to watchlist") }
+        }
     }
 
 }

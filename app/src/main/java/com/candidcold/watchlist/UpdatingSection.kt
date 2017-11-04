@@ -5,7 +5,6 @@ import com.xwray.groupie.Section
 import com.xwray.groupie.UpdatingGroup
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.item_header.view.*
-import timber.log.Timber
 
 
 class UpdatingSection(header: String,
@@ -18,7 +17,6 @@ class UpdatingSection(header: String,
     }
 
     fun update(items: List<Item<ViewHolder>>) {
-        Timber.d("Updating Group is updating")
         updatingGroup.update(items)
     }
 

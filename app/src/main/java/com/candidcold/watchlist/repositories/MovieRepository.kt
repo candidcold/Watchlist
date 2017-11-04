@@ -1,6 +1,7 @@
 package com.candidcold.watchlist.repositories
 
 
+import com.candidcold.watchlist.data.AppDatabase
 import com.candidcold.watchlist.data.Movie
 import com.candidcold.watchlist.data.MovieDao
 import io.reactivex.Completable
@@ -13,7 +14,12 @@ class MovieRepository @Inject constructor(private val dao: MovieDao) {
 
     fun getMoviesForDescriptor(descriptor: String): Flowable<List<Movie>> = dao.getMovies(descriptor)
 
-    fun removeMovie(movie: Movie): Completable = Completable.fromAction { dao.delete(movie) }
+    fun removeMovieFromWatchlist(movie: Movie): Completable = Completable.fromAction { dao.delete(movie) }
 
-    fun addMovie(movie: Movie): Completable = Completable.fromAction { dao.insert(movie) }
+    fun addMovieToWatchlist(movie: Movie): Completable = Completable.fromAction { dao.insertOrReplace(movie) }
+
+    fun onWatchlist(id: Int): Flowable<Boolean> =
+            dao.getNumberOfMoviesWithId(id, AppDatabase.DESCRIPTOR_WATCHLIST)
+                    .map { it > 0 }
+
 }

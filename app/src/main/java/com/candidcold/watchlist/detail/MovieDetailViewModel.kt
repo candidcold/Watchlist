@@ -3,13 +3,21 @@ package com.candidcold.watchlist.detail
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import com.candidcold.watchlist.network.NetworkMovie
+import io.reactivex.Completable
+import io.reactivex.Flowable
 import io.reactivex.Single
 import javax.inject.Inject
 
 
 class MovieDetailViewModel(private val interactor: MovieDetailInteractor) : ViewModel() {
 
+    fun onWatchlist(id: Int): Flowable<Boolean> = interactor.onWatchlist(id)
+
     fun getMovieDetails(id: Int): Single<NetworkMovie> = interactor.getMovieDetails(id)
+
+    fun addMovieToWatchlist(networkMovie: NetworkMovie) = interactor.addMovieToWatchlist(networkMovie)
+
+    fun removeMovieFromWatchlist(movie: NetworkMovie): Completable = interactor.removeMovieFromWatchlist(movie)
 
     // Will add in stuff for getting the actors and such eventually
     // Should also have a mechanism of starting with some information if they come from known place
@@ -22,4 +30,5 @@ class MovieDetailViewModel(private val interactor: MovieDetailInteractor) : View
             return MovieDetailViewModel(interactor) as T
         }
     }
+
 }

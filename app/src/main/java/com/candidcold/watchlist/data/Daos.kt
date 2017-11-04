@@ -6,12 +6,6 @@ import io.reactivex.Flowable
 
 interface BaseDao<in T> {
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(obj: T)
-
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(vararg obj: T)
-
     @Update
     fun update(obj: T)
 
@@ -20,18 +14,24 @@ interface BaseDao<in T> {
 }
 
 @Dao
-abstract class MovieDao : BaseDao<Movie> {
+interface MovieDao : BaseDao<Movie> {
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertOrReplace(movie: Movie)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    abstract fun insert(movies: List<Movie>)
+    fun insert(movies: List<Movie>)
 
     @Query("SELECT * FROM Movies WHERE descriptor = :descriptor")
-    abstract fun getMovies(descriptor: String): Flowable<List<Movie>>
+    fun getMovies(descriptor: String): Flowable<List<Movie>>
 
     @Query("SELECT * FROM Movies WHERE id = :id")
-    abstract fun getMovie(id: Int): Flowable<Movie>
+    fun getMovie(id: Int): Flowable<Movie>
 
     @Query("DELETE FROM Movies WHERE descriptor != :goodDescriptor")
-    abstract fun clearDatabase(goodDescriptor: String)
+    fun clearDatabase(goodDescriptor: String)
+
+    @Query("SELECT COUNT(*) FROM Movies WHERE id = :id AND descriptor = :descriptor")
+    fun getNumberOfMoviesWithId(id: Int, descriptor: String): Flowable<Int>
 
 }
