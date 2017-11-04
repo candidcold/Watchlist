@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/detail_app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <ImageView
+            android:id="@+id/detail_movie_backdrop_image"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:contentDescription="Movie Backdrop"
+            android:scaleType="centerCrop"
+            app:layout_scrollFlags="scroll"
+            tools:background="@color/colorPrimaryDark" />
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/detail_movie_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="112dp"
+            app:layout_scrollFlags="snap"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:titleMarginTop="?attr/actionBarSize"
+            tools:subtitle="Release Date: 12/18/15"
+            tools:title="Star Wars: The Force Awakens" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <include layout="@layout/content_movie_detail" />
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/detail_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:backgroundTint="@color/dark_grey"
+        app:pressedTranslationZ="@dimen/elevation_raised_large" />
+</android.support.design.widget.CoordinatorLayout>

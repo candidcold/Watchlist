@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:showIn="@layout/activity_movie_detail">
+
+    <ProgressBar
+        android:id="@+id/detail_movie_progress"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/detail_movie_overview_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/vertical_spacer_medium"
+            android:layout_marginEnd="@dimen/horizontal_spacer_medium"
+            android:layout_marginStart="@dimen/horizontal_spacer_large"
+            android:layout_marginTop="@dimen/vertical_spacer_large"
+            android:text="@string/detail_overview"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+        <TextView
+            android:id="@+id/detail_movie_overview"
+            style="@style/DetailBodyText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="@string/content_overview_dummy_text" />
+
+    </LinearLayout>
+
+</LinearLayout>
+    

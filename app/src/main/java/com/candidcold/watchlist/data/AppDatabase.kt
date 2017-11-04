@@ -2,6 +2,7 @@ package com.candidcold.watchlist.data
 
 import android.arch.persistence.room.*
 import com.candidcold.watchlist.network.NetworkListMovie
+import com.candidcold.watchlist.network.NetworkMovie
 
 @Database(entities = arrayOf(Movie::class), version = 1)
 abstract class AppDatabase : RoomDatabase() {
@@ -24,6 +25,20 @@ abstract class AppDatabase : RoomDatabase() {
                     null,
                     networkMovie.title,
                     descriptor)
+        }
+
+        fun convertEntityToWatchlistEntity(networkMovie: NetworkMovie): Movie {
+            return Movie(networkMovie.id,
+                    networkMovie.imdb_id,
+                    networkMovie.overview,
+                    networkMovie.backdrop_path,
+                    networkMovie.poster_path,
+                    networkMovie.release_date,
+                    networkMovie.runtime,
+                    networkMovie.status,
+                    networkMovie.tagline,
+                    networkMovie.title,
+                    AppDatabase.DESCRIPTOR_WATCHLIST)
         }
     }
 }

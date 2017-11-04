@@ -12,5 +12,10 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="DetailBodyText">
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body1</item>
+        <item name="android:layout_marginStart">@dimen/horizontal_spacer_large</item>
+        <item name="android:layout_marginEnd">@dimen/horizontal_spacer_medium</item>
+    </style>
 
 </resources>

@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import com.candidcold.watchlist.R
 import com.candidcold.watchlist.UpdatingSection
 import com.candidcold.watchlist.WatchApp
+import com.candidcold.watchlist.detail.MovieDetailActivity
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
 import com.uber.autodispose.kotlin.autoDisposeWith
 import com.xwray.groupie.GroupAdapter
@@ -61,6 +62,15 @@ class DiscoverFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         observe()
+        setupClickListener()
+    }
+
+    private fun setupClickListener() {
+        groupieAdapter.setOnItemClickListener { item, _ ->
+            when (item) {
+                is DiscoverMovieItem -> MovieDetailActivity.start(activity, item.movie.id)
+            }
+        }
     }
 
     private fun observe() {

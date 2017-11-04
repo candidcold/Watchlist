@@ -1,7 +1,20 @@
 <resources>
     <string name="app_name">Watchlist</string>
 
+    <!--Base Urls-->
     <string name="tmdb_cast_member_base_url">http://image.tmdb.org/t/p/w185/</string>
     <string name="tmdb_list_poster_base_url">http://image.tmdb.org/t/p/w342/</string>
     <string name="tmdb_list_backdrop_base_url">http://image.tmdb.org/t/p/w780</string>
+
+    <!--Detail-->
+    <string name="detail_overview">Synopsis</string>
+
+    <!--Dummy text-->
+    <string name="content_overview_dummy_text">Following the events of Age of Ultron, the collective governments of the world pass an act designed to regulate all superhuman activity. This polarizes opinion amongst the Avengers, causing two factions to side with Iron Man or Captain America, which causes an epic battle between former allies.</string>
+
+    <!--Empty states etc. Will refactor-->
+    <string name="empty_state_text">Your watchlist is currently empty, hooray! Err, or maybe you want to add some movies to it? Click the magnifying glass to search for movies or actors.</string>
+    <string name="search_empty_state_text">There aren\'t any matches for that query. Try again.</string>
+    <string name="search_hint">Search for actors, movies, or tv shows</string>
+
 </resources>

@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.item_discover_movie.view.*
 import kotlinx.android.synthetic.main.item_watchlist_movie.view.*
 
 
-class WatchlistMovieItem(private val movie: Movie) : Item<ViewHolder>() {
+class WatchlistMovieItem(val movie: Movie) : Item<ViewHolder>() {
 
     override fun bind(viewHolder: ViewHolder, position: Int) {
         viewHolder.itemView.watchlist_content_title.text = movie.title

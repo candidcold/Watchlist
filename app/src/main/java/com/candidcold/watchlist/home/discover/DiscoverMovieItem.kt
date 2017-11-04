@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.item_discover_movie.view.*
 import timber.log.Timber
 
 
-class DiscoverMovieItem(private val movie: Movie) : Item<ViewHolder>() {
+class DiscoverMovieItem(val movie: Movie) : Item<ViewHolder>() {
 
     override fun bind(viewHolder: ViewHolder, position: Int) {
         val context = viewHolder.itemView.content_image.context
