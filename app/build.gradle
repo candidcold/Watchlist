@@ -1,0 +1,91 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+androidExtensions {
+    experimental = true
+}
+
+def TMDB_API_KEY = '"' + TmdbApiKey + '"' ?: '"Get an api key'
+def TMDB_BASE_URL = '"' + TmdbBaseUrl + '"' ?: '"Get the base url'
+
+android {
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "com.candidcold.watchlist"
+        minSdkVersion 23
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "TmdbApiKey", TMDB_API_KEY
+        buildConfigField "String", "TmdbBaseUrl", TMDB_BASE_URL
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+def groupieVer = '2.0.0-alpha2'
+def supportLibVer = '26.1.0'
+def rxJavaVer = '2.1.6'
+def rxAndroidVer = '2.0.1'
+def retrofitVer = '2.2.0'
+def glideVer = '3.7.0'
+def okHttpVer = '3.7.0'
+def daggerVer = '2.12'
+def archVer = '1.0.0-rc1'
+def constraintVer = '1.0.2'
+def rxBindingVer = '2.0.0'
+def autoDisposeVer = '0.4.0'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+
+    // UI
+    implementation "com.android.support:appcompat-v7:$supportLibVer"
+    implementation "com.android.support:recyclerview-v7:$supportLibVer"
+    implementation "com.android.support:palette-v7:$supportLibVer"
+    implementation "com.android.support:cardview-v7:$supportLibVer"
+    implementation "com.android.support:design:$supportLibVer"
+    implementation "com.android.support.constraint:constraint-layout:$constraintVer"
+    implementation "com.github.bumptech.glide:glide:$glideVer"
+    implementation "com.xwray:groupie:$groupieVer"
+
+    // Rx
+    implementation "com.jakewharton.rxbinding2:rxbinding-kotlin:$rxBindingVer"
+    implementation "com.uber.autodispose:autodispose-kotlin:$autoDisposeVer"
+    implementation "com.uber.autodispose:autodispose-android-archcomponents-kotlin:$autoDisposeVer"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVer"
+    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVer"
+
+    // Networking
+    implementation "com.squareup.okhttp3:okhttp:$okHttpVer"
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVer"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofitVer"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVer"
+
+    // Arch Components
+    implementation "android.arch.lifecycle:runtime:$archVer"
+    implementation "android.arch.lifecycle:extensions:$archVer"
+    kapt "android.arch.lifecycle:compiler:$archVer"
+
+    implementation "android.arch.persistence.room:runtime:$archVer"
+    implementation "android.arch.persistence.room:rxjava2:$archVer"
+    kapt "android.arch.persistence.room:compiler:$archVer"
+
+    // Dagger
+    implementation "com.google.dagger:dagger:$daggerVer"
+    annotationProcessor "com.google.dagger:dagger-compiler:$daggerVer"
+    compileOnly 'javax.annotation:jsr250-api:1.0'
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+}
