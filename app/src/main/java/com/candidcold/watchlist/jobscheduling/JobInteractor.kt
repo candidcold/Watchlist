@@ -24,8 +24,7 @@ class JobInteractor @Inject constructor(private val client: TmdbClient,
         Timber.d("Clearing database")
         return Completable.fromAction {
             dao.clearDatabase(AppDatabase.DESCRIPTOR_WATCHLIST)
-            dao.insert(movies)
-        }
+        }.andThen(Completable.fromAction { dao.insert(movies) })
     }
 
     private fun fetchPopularMovies(): Observable<Movie> =

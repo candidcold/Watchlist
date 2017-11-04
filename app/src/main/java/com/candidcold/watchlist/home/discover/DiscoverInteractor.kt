@@ -8,8 +8,10 @@ import javax.inject.Inject
 
 class DiscoverInteractor @Inject constructor(private val repo: MovieRepository) {
 
-    fun getPopularMovies(): Flowable<List<Movie>> = repo.getMoviesForDescriptor(AppDatabase.DESCRIPTOR_POPULAR)
+    fun getPopularMovies(): Flowable<List<Movie>>
+            = repo.getMoviesForDescriptor(AppDatabase.DESCRIPTOR_POPULAR)
 
-    fun getTopRatedMovies(): Flowable<List<Movie>> = repo.getMoviesForDescriptor(AppDatabase.DESCRIPTOR_TOP_RATED)
+    fun getTopRatedMovies(): Flowable<List<Movie>>
+            = repo.getMoviesForDescriptor(AppDatabase.DESCRIPTOR_TOP_RATED)
 
 }

@@ -29,7 +29,7 @@ class DiscoverJobService : JobService() {
                     Timber.tag(TAG).d("Successfully updated database.")
                     jobFinished(jobParams, false)
                 }, {
-                    Timber.tag(TAG).d("Error refreshing database, will retry later.")
+                    Timber.tag(TAG).e(it,"Error refreshing database, will retry later.")
                     jobFinished(jobParams, true)
                 })
 

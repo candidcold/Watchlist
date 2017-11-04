@@ -6,10 +6,10 @@ import io.reactivex.Flowable
 
 interface BaseDao<in T> {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(obj: T)
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(vararg obj: T)
 
     @Update
@@ -22,7 +22,7 @@ interface BaseDao<in T> {
 @Dao
 abstract class MovieDao : BaseDao<Movie> {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     abstract fun insert(movies: List<Movie>)
 
     @Query("SELECT * FROM Movies WHERE descriptor = :descriptor")
