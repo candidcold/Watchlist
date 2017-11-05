@@ -20,7 +20,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".detail.MovieDetailActivity" />
+        <activity android:name=".detail.MovieDetailActivity"
+            android:parentActivityName=".home.MainActivity"/>
 
         <service android:name=".jobscheduling.DiscoverJobService"
             android:permission="android.permission.BIND_JOB_SERVICE"/>
