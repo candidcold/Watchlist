@@ -2,6 +2,7 @@ package com.candidcold.watchlist.detail
 
 import com.candidcold.watchlist.BuildConfig
 import com.candidcold.watchlist.data.AppDatabase
+import com.candidcold.watchlist.network.CastResponse
 import com.candidcold.watchlist.network.NetworkMovie
 import com.candidcold.watchlist.network.TmdbClient
 import com.candidcold.watchlist.repositories.MovieRepository
@@ -19,8 +20,12 @@ class MovieDetailInteractor @Inject constructor(private val client: TmdbClient,
     fun removeMovieFromWatchlist(movie: NetworkMovie): Completable =
             repo.removeMovieFromWatchlist(AppDatabase.convertEntityToWatchlistEntity(movie))
 
+    fun onWatchlist(id: Int): Flowable<Boolean> = repo.onWatchlist(id)
+
+    // From Network
+
     fun getMovieDetails(id: Int): Single<NetworkMovie> = client.getMovie(id, BuildConfig.TmdbApiKey)
 
-    fun onWatchlist(id: Int): Flowable<Boolean> = repo.onWatchlist(id)
+    fun getMovieCast(id: Int): Single<CastResponse> = client.getMovieCast(id, BuildConfig.TmdbApiKey)
 
 }

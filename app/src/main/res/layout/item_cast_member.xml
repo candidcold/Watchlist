@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingEnd="@dimen/horizontal_spacer_medium"
+    android:paddingStart="@dimen/horizontal_spacer_medium">
+
+    <!-- TODO: Make these all resource-based, no hardcoded dimens -->
+
+    <ImageView
+        android:id="@+id/item_cast_image"
+        android:layout_width="@dimen/actor_list_height_width"
+        android:layout_height="@dimen/actor_list_height_width"
+        android:layout_marginBottom="@dimen/vertical_spacer_medium"
+        android:layout_marginEnd="@dimen/horizontal_spacer_medium"
+        android:layout_marginTop="@dimen/vertical_spacer_medium"
+        tools:src="@mipmap/ic_launcher"
+        android:contentDescription="Cast Image" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/item_cast_real_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:maxWidth="200dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            tools:text="Robert Downey Jr." />
+
+        <TextView
+            android:id="@+id/item_cast_character_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:maxWidth="200dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            tools:text="Iron Man" />
+
+    </LinearLayout>
+
+</LinearLayout>

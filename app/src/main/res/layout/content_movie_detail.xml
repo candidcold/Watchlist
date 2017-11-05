@@ -40,5 +40,28 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/detail_movie_cast_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/horizontal_spacer_medium"
+            android:layout_marginStart="@dimen/horizontal_spacer_large"
+            android:layout_marginTop="@dimen/vertical_spacer_large"
+            android:text="@string/detail_cast_title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/detail_movie_cast_list"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/cast_recyclerview_size"
+            tools:list_item="@layout/item_cast" />
+
+    </LinearLayout>
+
 </LinearLayout>
     

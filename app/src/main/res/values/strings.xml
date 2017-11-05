@@ -16,5 +16,6 @@
     <string name="empty_state_text">Your watchlist is currently empty, hooray! Err, or maybe you want to add some movies to it? Click the magnifying glass to search for movies or actors.</string>
     <string name="search_empty_state_text">There aren\'t any matches for that query. Try again.</string>
     <string name="search_hint">Search for actors, movies, or tv shows</string>
+    <string name="detail_cast_title">Cast</string>
 
 </resources>

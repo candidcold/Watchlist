@@ -5,12 +5,17 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.candidcold.watchlist.R
+import com.candidcold.watchlist.UpdatingSection
 import com.candidcold.watchlist.WatchApp
+import com.candidcold.watchlist.network.NetworkCast
 import com.candidcold.watchlist.network.NetworkMovie
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
 import com.uber.autodispose.kotlin.autoDisposeWith
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.ViewHolder
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_movie_detail.*
@@ -38,6 +43,9 @@ class MovieDetailActivity : AppCompatActivity() {
 
     private var isOnWatchlist = false
 
+    private val groupAdapter = GroupAdapter<ViewHolder>()
+    private val castSection = UpdatingSection("", "")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
@@ -45,6 +53,11 @@ class MovieDetailActivity : AppCompatActivity() {
 
         setSupportActionBar(detail_movie_toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+
+        groupAdapter.add(castSection)
+        detail_movie_cast_list.adapter = groupAdapter
+        detail_movie_cast_list.layoutManager =
+                LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
         detail_fab.isEnabled = false
 
@@ -74,6 +87,20 @@ class MovieDetailActivity : AppCompatActivity() {
                 }, {
                     Timber.e(it, "Failed to set up movie details.")
                 })
+
+        viewModel.getMovieCast(movieId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    updateCast(it)
+                    Timber.d("Displaying movie cast.")
+                }, {
+                    Timber.e(it, "Unable to display cast.")
+                })
+    }
+
+    private fun updateCast(cast: List<NetworkCast>) {
+        castSection.update(cast.map { CastItem(it) })
     }
 
     // Could possibly combine these two operations/streams into one bigger model of the screen

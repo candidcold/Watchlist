@@ -12,7 +12,9 @@ class UpdatingSection(header: String,
     private val updatingGroup =  UpdatingGroup()
 
     init {
-        setHeader(HeaderItem(header, subtitle))
+        if (!header.isEmpty()) {
+            setHeader(HeaderItem(header, subtitle))
+        }
         add(updatingGroup)
     }
 

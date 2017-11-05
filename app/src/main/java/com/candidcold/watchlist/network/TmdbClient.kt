@@ -21,11 +21,11 @@ interface TmdbClient {
     fun getMovie(
             @Path("id") id: Int,
             @Query("api_key") apiKey: String): Single<NetworkMovie>
-//
-//    @GET("movie/{id}/credits")
-//    fun getMovieCast(
-//            @Path("id") id: Int,
-//            @Query("api_key") apiKey: String): Single<CastResponse>
+
+    @GET("movie/{id}/credits")
+    fun getMovieCast(
+            @Path("id") id: Int,
+            @Query("api_key") apiKey: String): Single<CastResponse>
 //
 //    // Actors
 //    @GET("person/{id}")
