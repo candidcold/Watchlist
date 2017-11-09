@@ -8,6 +8,7 @@ import javax.inject.Inject
 class WatchlistViewModel(interactor: WatchlistInteractor) : ViewModel() {
 
     val movies = interactor.getWatchlistMovies()
+    val tvShows = interactor.getWatchlistTvShows()
 
     @Suppress("UNCHECKED_CAST")
     class Factory @Inject constructor(private val interactor: WatchlistInteractor) : ViewModelProvider.NewInstanceFactory() {

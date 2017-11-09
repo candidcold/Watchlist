@@ -20,6 +20,9 @@ class TvRepository @Inject constructor(private val dao: TvShowDao) {
     fun addTvShowToWatchlist(tvShows: TvShow): Completable =
             Completable.fromAction { dao.insertOrReplace(tvShows) }
 
+    fun removeTvShowFromWatchlist(tvShow: TvShow): Completable =
+            Completable.fromAction { dao.delete(tvShow) }
+
     fun getTvShowsForDescriptor(descriptor: String): Flowable<List<TvShow>> =
             dao.getTvShows(descriptor)
 

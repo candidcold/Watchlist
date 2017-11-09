@@ -1,27 +1,27 @@
-package com.candidcold.watchlist.detail
+package com.candidcold.watchlist.detail.tv
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import com.candidcold.watchlist.network.NetworkCast
-import com.candidcold.watchlist.network.NetworkMovie
+import com.candidcold.watchlist.network.TvResponse
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
 import javax.inject.Inject
 
 
-class MovieDetailViewModel(private val interactor: MovieDetailInteractor) : ViewModel() {
+class TvShowDetailViewModel(private val interactor: TvShowDetailInteractor) : ViewModel() {
 
     fun onWatchlist(id: Int): Flowable<Boolean> = interactor.onWatchlist(id)
 
-    fun getMovieDetails(id: Int): Single<NetworkMovie> = interactor.getMovieDetails(id)
+    fun getTvShowDetails(id: Int): Single<TvResponse> = interactor.getTvShowDetails(id)
 
-    fun addMovieToWatchlist(networkMovie: NetworkMovie) = interactor.addMovieToWatchlist(networkMovie)
+    fun addTvShowToWatchlist(tvResponse: TvResponse) = interactor.addTvShowToWatchlist(tvResponse)
 
-    fun removeMovieFromWatchlist(movie: NetworkMovie): Completable = interactor.removeMovieFromWatchlist(movie)
+    fun removeTvShowFromWatchlist(tvResponse: TvResponse): Completable = interactor.removeTvShowFromWatchlist(tvResponse)
 
-    fun getMovieCast(id: Int): Single<List<NetworkCast>> =
-            interactor.getMovieCast(id)
+    fun getTvShowCast(id: Int): Single<List<NetworkCast>> =
+            interactor.getCast(id)
                     .map { it.cast }
                     .flattenAsObservable { it }
                     .filter { !it.profile_path.isNullOrBlank() }
@@ -29,13 +29,12 @@ class MovieDetailViewModel(private val interactor: MovieDetailInteractor) : View
 
     // Should also have a mechanism of starting with some information if they come from known place
 
-    class Factory @Inject constructor(private val interactor: MovieDetailInteractor)
+    class Factory @Inject constructor(private val interactor: TvShowDetailInteractor)
         : ViewModelProvider.NewInstanceFactory() {
 
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return MovieDetailViewModel(interactor) as T
+            return TvShowDetailViewModel(interactor) as T
         }
     }
-
 }

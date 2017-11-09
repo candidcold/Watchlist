@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import com.candidcold.watchlist.R
 import com.candidcold.watchlist.UpdatingSection
 import com.candidcold.watchlist.WatchApp
-import com.candidcold.watchlist.detail.MovieDetailActivity
+import com.candidcold.watchlist.detail.movie.MovieDetailActivity
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
 import com.uber.autodispose.kotlin.autoDisposeWith
 import com.xwray.groupie.GroupAdapter
@@ -41,6 +41,8 @@ class WatchlistFragment : Fragment() {
     private val groupieAdapter = GroupAdapter<ViewHolder>()
     private val moviesSection = UpdatingSection("Movies",
             "You've got to get to these eventually")
+    private val tvShowsSection = UpdatingSection("TV Shows",
+            "Now this could be a commitment")
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
@@ -52,6 +54,7 @@ class WatchlistFragment : Fragment() {
         itemView.watchlist_movies_list.adapter = groupieAdapter
         itemView.watchlist_movies_list.layoutManager = LinearLayoutManager(activity)
         groupieAdapter.add(moviesSection)
+        groupieAdapter.add(tvShowsSection)
 
         return itemView
     }
@@ -81,6 +84,18 @@ class WatchlistFragment : Fragment() {
                     Timber.tag(TAG).d("Displaying ${it.size} watchlist movies.")
                 }, {
                     Timber.tag(TAG).e(it, "Failed to display watchlist movies.")
+                })
+
+        viewModel.tvShows
+                .map { list -> list.map { WatchlistTvItem(it) } }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .autoDisposeWith(AndroidLifecycleScopeProvider.from(this))
+                .subscribe({
+                    tvShowsSection.update(it)
+                    Timber.tag(TAG).d("Displaying ${it.size} watchlist shows.")
+                }, {
+                    Timber.tag(TAG).e(it, "Failed to display watchlist shows.")
                 })
     }
 }

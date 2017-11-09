@@ -1,4 +1,4 @@
-package com.candidcold.watchlist.detail
+package com.candidcold.watchlist.detail.movie
 
 import com.candidcold.watchlist.BuildConfig
 import com.candidcold.watchlist.network.CastResponse

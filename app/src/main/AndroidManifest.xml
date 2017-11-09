@@ -2,16 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.candidcold.watchlist">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
+        android:name=".WatchApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:name=".WatchApp"
         android:theme="@style/AppTheme">
         <activity android:name=".home.MainActivity">
             <intent-filter>
@@ -20,11 +20,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".detail.MovieDetailActivity"
-            android:parentActivityName=".home.MainActivity"/>
+        <activity
+            android:name=".detail.movie.MovieDetailActivity"
+            android:parentActivityName=".home.MainActivity" />
+        <activity
+            android:name=".detail.tv.TvShowDetailActivity"
+            android:parentActivityName=".home.MainActivity" />
 
-        <service android:name=".jobscheduling.DiscoverJobService"
-            android:permission="android.permission.BIND_JOB_SERVICE"/>
+        <service
+            android:name=".jobscheduling.DiscoverJobService"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
     </application>
 
 </manifest>

@@ -35,6 +35,10 @@ interface TmdbClient {
     fun getTvShow(@Path("id") id: Int,
                   @Query("api_key") apiKey: String): Single<TvResponse>
 
+    @GET("tv/{id}/credits")
+    fun getTvShowCast(@Path("id") id: Int,
+                      @Query("api_key") apiKey: String): Single<CastResponse>
+
 
 //
 //    // Actors

@@ -1,4 +1,4 @@
-package com.candidcold.watchlist.detail
+package com.candidcold.watchlist.detail.tv
 
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
@@ -10,35 +10,36 @@ import com.bumptech.glide.Glide
 import com.candidcold.watchlist.R
 import com.candidcold.watchlist.UpdatingSection
 import com.candidcold.watchlist.WatchApp
+import com.candidcold.watchlist.detail.CastItem
 import com.candidcold.watchlist.network.NetworkCast
-import com.candidcold.watchlist.network.NetworkMovie
+import com.candidcold.watchlist.network.TvResponse
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
 import com.uber.autodispose.kotlin.autoDisposeWith
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_movie_detail.*
-import kotlinx.android.synthetic.main.content_movie_detail.*
+import kotlinx.android.synthetic.main.activity_tv_show_detail.*
+import kotlinx.android.synthetic.main.content_tv_show_detail.*
 import timber.log.Timber
 import javax.inject.Inject
 
 
-class MovieDetailActivity : AppCompatActivity() {
+class TvShowDetailActivity : AppCompatActivity() {
 
     companion object {
-        val EXTRA_MOVIE_ID = "movie_id"
+        val EXTRA_TV_SHOW_ID = "tv_show_id"
 
         fun start(from: Context, id: Int) {
-            val intent = Intent(from, MovieDetailActivity::class.java)
-            intent.putExtra(EXTRA_MOVIE_ID, id)
+            val intent = Intent(from, TvShowDetailActivity::class.java)
+            intent.putExtra(EXTRA_TV_SHOW_ID, id)
             from.startActivity(intent)
         }
     }
 
-    @Inject lateinit var factory: MovieDetailViewModel.Factory
-    private val viewModel: MovieDetailViewModel by lazy {
-        ViewModelProviders.of(this, factory).get(MovieDetailViewModel::class.java)
+    @Inject lateinit var factory: TvShowDetailViewModel.Factory
+    private val viewModel: TvShowDetailViewModel by lazy {
+        ViewModelProviders.of(this, factory).get(TvShowDetailViewModel::class.java)
     }
 
     private var isOnWatchlist = false
@@ -48,52 +49,52 @@ class MovieDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_movie_detail)
+        setContentView(R.layout.activity_tv_show_detail)
         (application as WatchApp).appComponent.inject(this)
 
-        setSupportActionBar(detail_movie_toolbar)
+        setSupportActionBar(tv_show_detail_toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
         groupAdapter.add(castSection)
-        detail_movie_cast_list.adapter = groupAdapter
-        detail_movie_cast_list.layoutManager =
+        tv_show_detail_cast_list.adapter = groupAdapter
+        tv_show_detail_cast_list.layoutManager =
                 LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
-        detail_fab.isEnabled = false
+        tv_show_detail_fab.isEnabled = false
 
-        val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, 0)
-        observe(movieId)
+        val tvShowId = intent.getIntExtra(EXTRA_TV_SHOW_ID, 0)
+        observe(tvShowId)
     }
 
     private fun setupClickListeners() {
         // Will eventually be used when the cast is shown
     }
 
-    private fun observe(movieId: Int) {
-        viewModel.onWatchlist(movieId)
+    private fun observe(tvShowId: Int) {
+        viewModel.onWatchlist(tvShowId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     setFabIcon(it)
                 })
 
-        viewModel.getMovieDetails(movieId)
+        viewModel.getTvShowDetails(tvShowId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .autoDisposeWith(AndroidLifecycleScopeProvider.from(this))
                 .subscribe({
-                    setupMovieDetails(it)
-                    Timber.d("Set up ${it.title} details.")
+                    setupTvShowDetails(it)
+                    Timber.d("Set up ${it.name} details.")
                 }, {
-                    Timber.e(it, "Failed to set up movie details.")
+                    Timber.e(it, "Failed to set up tvShow details.")
                 })
 
-        viewModel.getMovieCast(movieId)
+        viewModel.getTvShowCast(tvShowId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     updateCast(it)
-                    Timber.d("Displaying movie cast.")
+                    Timber.d("Displaying tvShow cast.")
                 }, {
                     Timber.e(it, "Unable to display cast.")
                 })
@@ -108,40 +109,39 @@ class MovieDetailActivity : AppCompatActivity() {
         isOnWatchlist = onWatchlist
         Timber.d("Is on the watchlist is updated with value $onWatchlist")
         if (onWatchlist) {
-            detail_fab.setImageResource(R.drawable.ic_check_black_24dp)
+            tv_show_detail_fab.setImageResource(R.drawable.ic_check_black_24dp)
         } else {
-            detail_fab.setImageResource(R.drawable.ic_add)
+            tv_show_detail_fab.setImageResource(R.drawable.ic_add)
         }
     }
 
-    private fun setupMovieDetails(movie: NetworkMovie) {
-        detail_movie_toolbar.title = movie.title
-        detail_movie_toolbar.subtitle = movie.release_date
-        detail_movie_overview.text = movie.overview
+    private fun setupTvShowDetails(tvShow: TvResponse) {
+        tv_show_detail_toolbar.title = tvShow.name
+        tv_show_detail_toolbar.subtitle = "${tvShow.number_of_seasons} seasons"
+        tv_show_detail_overview.text = tvShow.overview
         val backdropBaseUrl = getString(R.string.tmdb_list_backdrop_base_url)
         Glide.with(this)
-                .load(backdropBaseUrl + movie.backdrop_path)
+                .load(backdropBaseUrl + tvShow.backdrop_path)
                 .crossFade()
-                .into(detail_movie_backdrop_image)
+                .into(tv_show_detail_backdrop_image)
 
-        detail_fab.isEnabled = true
-        detail_fab.setOnClickListener {
-            addOrRemoveFromWatchlist(movie)
+        tv_show_detail_fab.isEnabled = true
+        tv_show_detail_fab.setOnClickListener {
+            addOrRemoveFromWatchlist(tvShow)
         }
     }
 
-    private fun addOrRemoveFromWatchlist(movie: NetworkMovie) {
+    private fun addOrRemoveFromWatchlist(tvShow: TvResponse) {
         if (isOnWatchlist) {
-            viewModel.removeMovieFromWatchlist(movie)
+            viewModel.removeTvShowFromWatchlist(tvShow)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe { Timber.d("Removed ${movie.title} from watchlist") }
+                    .subscribe { Timber.d("Removed ${tvShow.name} from watchlist") }
         } else {
-            viewModel.addMovieToWatchlist(movie)
+            viewModel.addTvShowToWatchlist(tvShow)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe { Timber.d("Added ${movie.title} to watchlist") }
+                    .subscribe { Timber.d("Added ${tvShow.name} to watchlist") }
         }
     }
-
 }

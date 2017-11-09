@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -8,27 +7,27 @@
     android:clickable="true"
     android:focusable="true">
 
+    <!-- Will probably replace this with a dedicated layout for movies and shows separately -->
+
     <ImageView
         android:id="@+id/watchlist_backdrop_image"
         android:layout_width="match_parent"
         android:layout_height="@dimen/watchlist_movie_backdrop_height"
-        tools:background="@color/colorPrimaryDark"
-        android:contentDescription="Movie Backdrop" />
+        android:contentDescription="Movie Backdrop"
+        tools:background="@color/colorPrimaryDark" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_gravity="bottom"
         android:alpha=".2"
-        android:background="@android:color/black"
-        />
+        android:background="@android:color/black" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        tools:background="@android:color/darker_gray"
-        >
+        tools:background="@android:color/darker_gray">
 
         <ImageView
             android:id="@+id/watchlist_content_image"
@@ -37,10 +36,10 @@
             android:layout_marginBottom="@dimen/vertical_spacer_medium"
             android:layout_marginStart="@dimen/horizontal_spacer_medium"
             android:layout_marginTop="-16dp"
+            android:contentDescription="Movie Poster"
             android:elevation="@dimen/elevation_raised_medium"
             android:scaleType="fitXY"
-            tools:background="@color/colorAccent"
-            android:contentDescription="Movie Poster" />
+            tools:background="@color/colorAccent" />
 
         <TextView
             android:id="@+id/watchlist_content_title"
@@ -51,7 +50,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             android:textColor="#FFF"
             tools:background="@color/colorAccent"
-            tools:text="Captain America: Civil War"/>
+            tools:text="Captain America: Civil War" />
 
     </RelativeLayout>
 </FrameLayout>
