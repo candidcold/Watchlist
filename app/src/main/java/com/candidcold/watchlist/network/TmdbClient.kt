@@ -40,17 +40,16 @@ interface TmdbClient {
                       @Query("api_key") apiKey: String): Single<CastResponse>
 
 
-//
-//    // Actors
-//    @GET("person/{id}")
-//    fun getActor(
-//            @Path("id") id: Int,
-//            @Query("api_key") apiKey: String): Single<ActorResponse>
-//
-//    @GET("person/{id}/combined_credits")
-//    fun getActorsRoles(
-//            @Path("id") id: Int,
-//            @Query("api_key") apiKey: String): Single<RoleResponse>
+    // Actors
+    @GET("person/{id}")
+    fun getActor(
+            @Path("id") id: Int,
+            @Query("api_key") apiKey: String): Single<ActorResponse>
+
+    @GET("person/{id}/combined_credits")
+    fun getActorsRoles(
+            @Path("id") id: Int,
+            @Query("api_key") apiKey: String): Single<RoleResponse>
 //
 //    // Search
 //    @GET("search/multi")

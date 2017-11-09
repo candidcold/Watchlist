@@ -26,6 +26,7 @@
         <activity
             android:name=".detail.tv.TvShowDetailActivity"
             android:parentActivityName=".home.MainActivity" />
+        <activity android:name=".detail.actor.ActorDetailActivity" />
 
         <service
             android:name=".jobscheduling.DiscoverJobService"

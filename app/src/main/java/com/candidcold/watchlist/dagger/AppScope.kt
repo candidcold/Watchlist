@@ -8,6 +8,7 @@ import com.candidcold.watchlist.WatchApp
 import com.candidcold.watchlist.data.AppDatabase
 import com.candidcold.watchlist.data.MovieDao
 import com.candidcold.watchlist.data.TvShowDao
+import com.candidcold.watchlist.detail.actor.ActorDetailActivity
 import com.candidcold.watchlist.detail.movie.MovieDetailActivity
 import com.candidcold.watchlist.detail.tv.TvShowDetailActivity
 import com.candidcold.watchlist.home.MainActivity
@@ -37,6 +38,7 @@ interface AppComponent {
     fun inject(target: WatchlistFragment)
     fun inject(target: MovieDetailActivity)
     fun inject(target: TvShowDetailActivity)
+    fun inject(target: ActorDetailActivity)
 
 }
 

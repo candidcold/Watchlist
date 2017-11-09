@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/item_role_width"
+    android:layout_height="200dp"
+    android:layout_marginBottom="@dimen/vertical_spacer_medium"
+    android:layout_marginTop="@dimen/vertical_spacer_medium"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingEnd="@dimen/horizontal_spacer_medium"
+    android:paddingStart="@dimen/horizontal_spacer_medium">
+
+    <ImageView
+        android:id="@+id/role_content_image"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/role_image_height"
+        tools:src="@android:drawable/sym_def_app_icon"
+        android:contentDescription="Role Image" />
+
+    <TextView
+        android:id="@+id/role_content_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        tools:text="Saving Private Ryan" />
+
+    <TextView
+        android:id="@+id/role_character_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        tools:text="Bob Johnson" />
+
+</LinearLayout>
