@@ -35,3 +35,26 @@ interface MovieDao : BaseDao<Movie> {
     fun getNumberOfMoviesWithId(id: Int, descriptor: String): Flowable<Int>
 
 }
+
+@Dao
+interface TvShowDao : BaseDao<TvShow> {
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertOrReplace(tvShow: TvShow)
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insert(tvShow: List<TvShow>)
+
+    @Query("SELECT * FROM TvShows WHERE descriptor = :descriptor")
+    fun getTvShows(descriptor: String): Flowable<List<TvShow>>
+
+    @Query("SELECT * FROM TvShows WHERE id = :id")
+    fun getTvShow(id: Int): Flowable<TvShow>
+
+    @Query("DELETE FROM TvShows WHERE descriptor != :goodDescriptor")
+    fun clearDatabase(goodDescriptor: String)
+
+    @Query("SELECT COUNT(*) FROM TvShows WHERE id = :id AND descriptor = :descriptor")
+    fun getNumberOfTvShowsWithId(id: Int, descriptor: String): Flowable<Int>
+
+}

@@ -10,22 +10,32 @@ interface TmdbClient {
 
     // Movies
     @GET("movie/popular")
-    fun getPopularMovies(
-            @Query("api_key") apiKey: String): Single<MovieListResponse>
+    fun getPopularMovies(@Query("api_key") apiKey: String): Single<MovieListResponse>
 
     @GET("movie/top_rated")
-    fun getTopRatedMovies(
-            @Query("api_key") apiKey: String): Single<MovieListResponse>
+    fun getTopRatedMovies(@Query("api_key") apiKey: String): Single<MovieListResponse>
 
     @GET("movie/{id}")
-    fun getMovie(
-            @Path("id") id: Int,
-            @Query("api_key") apiKey: String): Single<NetworkMovie>
+    fun getMovie(@Path("id") id: Int,
+                 @Query("api_key") apiKey: String): Single<NetworkMovie>
 
     @GET("movie/{id}/credits")
-    fun getMovieCast(
-            @Path("id") id: Int,
-            @Query("api_key") apiKey: String): Single<CastResponse>
+    fun getMovieCast(@Path("id") id: Int,
+                     @Query("api_key") apiKey: String): Single<CastResponse>
+
+
+    // TV Shows
+    @GET("tv/popular")
+    fun getPopularTvShows(@Query("api_key") apiKey: String): Single<TvListResponse>
+
+    @GET("tv/top_rated")
+    fun getTopRatedTvShows(@Query("api_key") apiKey: String): Single<TvListResponse>
+
+    @GET("tv/{id}")
+    fun getTvShow(@Path("id") id: Int,
+                  @Query("api_key") apiKey: String): Single<TvResponse>
+
+
 //
 //    // Actors
 //    @GET("person/{id}")

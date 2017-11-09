@@ -9,6 +9,8 @@ class DiscoverViewModel(interactor: DiscoverInteractor) : ViewModel() {
 
     val popularMovies = interactor.getPopularMovies()
     val topRatedMovies = interactor.getTopRatedMovies()
+    val popularShows = interactor.getPopularShows()
+    val topRatedShows = interactor.getTopRatedShows()
 
     @Suppress("UNCHECKED_CAST")
     class Factory @Inject constructor(private val interactor: DiscoverInteractor)

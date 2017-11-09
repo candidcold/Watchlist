@@ -43,6 +43,10 @@ class DiscoverFragment : Fragment() {
             "You know, the ones you've been meaning to see")
     private val topRatedMoviesSection = UpdatingSection("Top Rated Movies",
             "The ones Ashton keeps talking about")
+    private val popularShowsSection = UpdatingSection("Popular Tv Shows",
+            "Remember: Popular doesn't always mean good")
+    private val topRatedShowsSection = UpdatingSection("Top Rated Tv Shows",
+            "Let's be honest, it'll be hard to top The Wire")
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
@@ -55,6 +59,8 @@ class DiscoverFragment : Fragment() {
         itemView.discover_movies_list.layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
         groupieAdapter.add(popularMoviesSection)
         groupieAdapter.add(topRatedMoviesSection)
+        groupieAdapter.add(popularShowsSection)
+        groupieAdapter.add(topRatedShowsSection)
 
         return itemView
     }
@@ -96,6 +102,30 @@ class DiscoverFragment : Fragment() {
                     Timber.tag(TAG).d("Displaying ${it.size} top rated movies.")
                 }, {
                     Timber.tag(TAG).e(it, "Failed to display top rated movies.")
+                })
+
+        viewModel.popularShows
+                .map { list -> list.map { DiscoverTvItem(it) } }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .autoDisposeWith(AndroidLifecycleScopeProvider.from(this))
+                .subscribe({
+                    popularShowsSection.update(it)
+                    Timber.d("Displaying ${it.size} popular shows.")
+                }, {
+                    Timber.e(it, "Failed to display popular shows.")
+                })
+
+        viewModel.topRatedShows
+                .map { list -> list.map { DiscoverTvItem(it) } }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .autoDisposeWith(AndroidLifecycleScopeProvider.from(this))
+                .subscribe({
+                    topRatedShowsSection.update(it)
+                    Timber.d("Displaying ${it.size} top rated shows.")
+                }, {
+                    Timber.e(it, "Failed to display top rated shows.")
                 })
     }
 }

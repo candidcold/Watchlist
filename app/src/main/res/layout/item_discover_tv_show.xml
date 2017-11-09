@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/popular_movie_list_item_width"
+    android:layout_height="@dimen/popular_movie_list_item_height"
+    android:layout_marginTop="@dimen/vertical_spacer_small"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    tools:background="@color/colorAccent">
+
+    <ImageView
+        android:id="@+id/item_tv_poster"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="Tv Poster"
+        android:scaleType="fitXY" />
+
+</android.support.v7.widget.CardView>

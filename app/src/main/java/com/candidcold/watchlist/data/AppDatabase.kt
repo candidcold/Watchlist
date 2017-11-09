@@ -1,46 +1,19 @@
 package com.candidcold.watchlist.data
 
 import android.arch.persistence.room.*
-import com.candidcold.watchlist.network.NetworkListMovie
-import com.candidcold.watchlist.network.NetworkMovie
 
-@Database(entities = arrayOf(Movie::class), version = 1)
+@Database(entities = arrayOf(Movie::class, TvShow::class, Season::class), version = 1)
 abstract class AppDatabase : RoomDatabase() {
+
     abstract fun movieDao(): MovieDao
+    abstract fun tvShowDao(): TvShowDao
 
     companion object {
         val DESCRIPTOR_WATCHLIST = "watchlist"
         val DESCRIPTOR_POPULAR = "popular"
         val DESCRIPTOR_TOP_RATED = "top_rated"
-
-        fun convertEntity(networkMovie: NetworkListMovie, descriptor: String): Movie {
-            return Movie(networkMovie.id,
-                    null,
-                    networkMovie.overview,
-                    networkMovie.backdrop_path,
-                    networkMovie.poster_path,
-                    networkMovie.release_date,
-                    null,
-                    null,
-                    null,
-                    networkMovie.title,
-                    descriptor)
-        }
-
-        fun convertEntityToWatchlistEntity(networkMovie: NetworkMovie): Movie {
-            return Movie(networkMovie.id,
-                    networkMovie.imdb_id,
-                    networkMovie.overview,
-                    networkMovie.backdrop_path,
-                    networkMovie.poster_path,
-                    networkMovie.release_date,
-                    networkMovie.runtime,
-                    networkMovie.status,
-                    networkMovie.tagline,
-                    networkMovie.title,
-                    AppDatabase.DESCRIPTOR_WATCHLIST)
-        }
     }
+
 }
 
 @Entity(tableName = "Movies")
@@ -57,3 +30,22 @@ data class Movie(@PrimaryKey val id: Int,
                  @ColumnInfo(name = "descriptor") val descriptor: String)
 
 
+@Entity(tableName = "TvShows")
+data class TvShow(@PrimaryKey val id: Int,
+                  @ColumnInfo(name = "backdrop_path") val backdropPath: String?,
+                  @ColumnInfo(name = "first_air_date") val firstAirDate: String,
+                  @ColumnInfo(name = "last_air_date") val lastAirDate: String?,
+                  @ColumnInfo(name = "name") val name: String,
+                  @ColumnInfo(name = "number_of_episodes") val numberOfEpisodes: Int?,
+                  @ColumnInfo(name = "number_of_seasons") val numberOfSeasons: Int?,
+                  @ColumnInfo(name = "overview") val overview: String,
+                  @ColumnInfo(name = "poster_path") val posterPath: String?,
+                  @ColumnInfo(name = "descriptor") val descriptor: String)
+
+@Entity(tableName = "Season")
+data class Season(@PrimaryKey val id: Int,
+                  @ColumnInfo(name = "show_id") val showId: Int,
+                  @ColumnInfo(name = "air_date") val airDate: String,
+                  @ColumnInfo(name = "episode_count") val episodeCount: Int,
+                  @ColumnInfo(name = "poster_path") val posterPath: String?,
+                  @ColumnInfo(name = "season_number") val seasonNumber: Int)

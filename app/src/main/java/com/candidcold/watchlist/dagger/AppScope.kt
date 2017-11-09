@@ -7,6 +7,7 @@ import com.candidcold.watchlist.BuildConfig
 import com.candidcold.watchlist.WatchApp
 import com.candidcold.watchlist.data.AppDatabase
 import com.candidcold.watchlist.data.MovieDao
+import com.candidcold.watchlist.data.TvShowDao
 import com.candidcold.watchlist.detail.MovieDetailActivity
 import com.candidcold.watchlist.home.MainActivity
 import com.candidcold.watchlist.home.discover.DiscoverFragment
@@ -86,6 +87,11 @@ class DataModule {
     @Provides @Singleton
     internal fun provideMovieDao(appDatabase: AppDatabase): MovieDao {
         return appDatabase.movieDao()
+    }
+
+    @Provides @Singleton
+    internal fun provideTvShowDao(appDatabase: AppDatabase): TvShowDao {
+        return appDatabase.tvShowDao()
     }
 }
 
