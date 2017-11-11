@@ -14,14 +14,14 @@
     android:paddingStart="@dimen/horizontal_spacer_medium">
 
     <ImageView
-        android:id="@+id/role_content_image"
+        android:id="@+id/item_role_content_image"
         android:layout_width="match_parent"
         android:layout_height="@dimen/role_image_height"
         tools:src="@android:drawable/sym_def_app_icon"
         android:contentDescription="Role Image" />
 
     <TextView
-        android:id="@+id/role_content_title"
+        android:id="@+id/item_role_content_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ellipsize="end"
@@ -30,7 +30,7 @@
         tools:text="Saving Private Ryan" />
 
     <TextView
-        android:id="@+id/role_character_title"
+        android:id="@+id/item_role_character_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ellipsize="end"

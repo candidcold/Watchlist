@@ -23,3 +23,9 @@ data class NetworkActorCrewCredit(val id: Int,
                                   val media_type: String,
                                   val backdrop_path: String?,
                                   val poster_path: String?)
+
+enum class MediaType(val type: String) {
+    ACTOR("person"),
+    SHOW("tv"),
+    MOVIE("movie")
+}

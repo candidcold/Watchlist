@@ -5,10 +5,19 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
 import com.candidcold.watchlist.R
 import com.candidcold.watchlist.WatchApp
+import com.candidcold.watchlist.detail.movie.MovieDetailActivity
+import com.candidcold.watchlist.detail.tv.TvShowDetailActivity
+import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
+import com.uber.autodispose.kotlin.autoDisposeWith
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_actor_detail.*
+import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -34,8 +43,45 @@ class ActorDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_movie_detail)
+        setContentView(R.layout.activity_actor_detail)
         (application as WatchApp).appComponent.inject(this)
 
+        actor_detail_list.adapter = groupAdapter
+        actor_detail_list.layoutManager = LinearLayoutManager(this)
+        val id = intent.getIntExtra(EXTRA_ACTOR_ID, 0)
+        observe(id)
+        setupClickListeners()
+    }
+
+    private fun setupClickListeners() {
+        groupAdapter.setOnItemClickListener { item, _ ->
+            val role = (item as RoleItem).role
+            when(role.media_type) {
+                "movie" -> MovieDetailActivity.start(this, role.id)
+                "tv" -> TvShowDetailActivity.start(this, role.id)
+            }
+        }
+    }
+
+    private fun observe(id: Int) {
+        viewModel.details(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .autoDisposeWith(AndroidLifecycleScopeProvider.from(this))
+                .subscribe({
+                    Timber.d("Got actor details")
+                    setupActorDetails(it)
+                }, {
+                    Timber.e(it, "Unable to get actor details")
+                })
+    }
+
+    private fun setupActorDetails(details: ActorDetails) {
+        val topItem = ActorDetailItem(details.details)
+        val roles = details.credits
+                .filter { it.poster_path != null }
+                .map { RoleItem(it.media_type, it) }
+        groupAdapter.add(topItem)
+        groupAdapter.addAll(roles)
     }
 }

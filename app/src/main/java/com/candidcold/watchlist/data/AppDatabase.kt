@@ -49,3 +49,7 @@ data class Season(@PrimaryKey val id: Int,
                   @ColumnInfo(name = "episode_count") val episodeCount: Int,
                   @ColumnInfo(name = "poster_path") val posterPath: String?,
                   @ColumnInfo(name = "season_number") val seasonNumber: Int)
+
+
+// TODO: Save the credits that an actor has, similar to Season, only the ones on the watch list
+// TODO: Save the actors list that are in a movie/tv show, only the ones on the watch list, maybe everything idk

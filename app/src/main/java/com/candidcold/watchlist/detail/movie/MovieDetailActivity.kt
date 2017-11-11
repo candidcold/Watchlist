@@ -11,6 +11,7 @@ import com.candidcold.watchlist.R
 import com.candidcold.watchlist.UpdatingSection
 import com.candidcold.watchlist.WatchApp
 import com.candidcold.watchlist.detail.CastItem
+import com.candidcold.watchlist.detail.actor.ActorDetailActivity
 import com.candidcold.watchlist.network.NetworkCast
 import com.candidcold.watchlist.network.NetworkMovie
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
@@ -64,10 +65,14 @@ class MovieDetailActivity : AppCompatActivity() {
 
         val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, 0)
         observe(movieId)
+        setupClickListeners()
     }
 
     private fun setupClickListeners() {
-        // Will eventually be used when the cast is shown
+        groupAdapter.setOnItemClickListener { item, _ ->
+            val id = (item as CastItem).castMember.id
+            ActorDetailActivity.start(this, id)
+        }
     }
 
     private fun observe(movieId: Int) {
