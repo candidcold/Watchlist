@@ -16,6 +16,7 @@ import com.candidcold.watchlist.home.discover.DiscoverFragment
 import com.candidcold.watchlist.home.watchlist.WatchlistFragment
 import com.candidcold.watchlist.jobscheduling.DiscoverJobService
 import com.candidcold.watchlist.network.TmdbClient
+import com.candidcold.watchlist.search.SearchActivity
 import dagger.Component
 import dagger.Module
 import dagger.Provides
@@ -39,6 +40,7 @@ interface AppComponent {
     fun inject(target: MovieDetailActivity)
     fun inject(target: TvShowDetailActivity)
     fun inject(target: ActorDetailActivity)
+    fun inject(target: SearchActivity)
 
 }
 

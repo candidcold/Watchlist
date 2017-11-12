@@ -64,6 +64,7 @@ dependencies {
 
     // Rx
     implementation "com.jakewharton.rxbinding2:rxbinding-kotlin:$rxBindingVer"
+    implementation "com.jakewharton.rxbinding2:rxbinding-appcompat-v7-kotlin:$rxBindingVer"
     implementation "com.uber.autodispose:autodispose-kotlin:$autoDisposeVer"
     implementation "com.uber.autodispose:autodispose-android-archcomponents-kotlin:$autoDisposeVer"
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVer"
@@ -78,6 +79,7 @@ dependencies {
     // Arch Components
     implementation "android.arch.lifecycle:runtime:$archVer"
     implementation "android.arch.lifecycle:extensions:$archVer"
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     kapt "android.arch.lifecycle:compiler:$archVer"
 
     implementation "android.arch.persistence.room:runtime:$archVer"

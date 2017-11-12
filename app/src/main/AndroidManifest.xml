@@ -31,6 +31,10 @@
         <service
             android:name=".jobscheduling.DiscoverJobService"
             android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <activity
+            android:name=".search.SearchActivity"
+            android:parentActivityName=".home.MainActivity" />
     </application>
 
 </manifest>

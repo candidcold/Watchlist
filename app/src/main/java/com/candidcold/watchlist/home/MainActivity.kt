@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import com.candidcold.watchlist.R
 import com.candidcold.watchlist.home.discover.DiscoverFragment
 import com.candidcold.watchlist.home.watchlist.WatchlistFragment
+import com.candidcold.watchlist.search.SearchActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
@@ -17,6 +18,9 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(main_toolbar)
 
         initPaging()
+        main_fab.setOnClickListener {
+            SearchActivity.start(this)
+        }
     }
 
     private fun initPaging() {
