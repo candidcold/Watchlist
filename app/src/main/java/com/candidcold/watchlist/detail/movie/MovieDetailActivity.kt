@@ -6,12 +6,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
 import com.candidcold.watchlist.R
 import com.candidcold.watchlist.UpdatingSection
 import com.candidcold.watchlist.WatchApp
 import com.candidcold.watchlist.detail.CastItem
 import com.candidcold.watchlist.detail.actor.ActorDetailActivity
+import com.candidcold.watchlist.extensions.loadFromUrl
 import com.candidcold.watchlist.network.NetworkCast
 import com.candidcold.watchlist.network.NetworkMovie
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
@@ -106,7 +106,9 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     private fun updateCast(cast: List<NetworkCast>) {
-        castSection.update(cast.map { CastItem(it) })
+        val items = cast.filter { it.profile_path != null }
+                .map { CastItem(it) }
+        castSection.update(items)
     }
 
     // Could possibly combine these two operations/streams into one bigger model of the screen
@@ -124,11 +126,8 @@ class MovieDetailActivity : AppCompatActivity() {
         detail_movie_toolbar.title = movie.title
         detail_movie_toolbar.subtitle = movie.release_date
         detail_movie_overview.text = movie.overview
-        val backdropBaseUrl = getString(R.string.tmdb_list_backdrop_base_url)
-        Glide.with(this)
-                .load(backdropBaseUrl + movie.backdrop_path)
-                .crossFade()
-                .into(detail_movie_backdrop_image)
+        val path = getString(R.string.tmdb_list_backdrop_base_url) + movie.backdrop_path
+        detail_movie_backdrop_image.loadFromUrl(path)
 
         detail_fab.isEnabled = true
         detail_fab.setOnClickListener {

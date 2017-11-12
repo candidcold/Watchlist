@@ -90,7 +90,9 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun updateSearchResults(results: SearchResponse) {
-        val list = results.results.map { SearchResultItem(it) }
+        val list = results.results
+                .filter { it.poster_path != null }
+                .map { SearchResultItem(it) }
         searchResultSection.update(list)
     }
 

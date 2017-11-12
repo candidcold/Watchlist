@@ -11,7 +11,6 @@ class SearchViewModel(private val interactor: SearchInteractor) : ViewModel() {
 
     fun search(query: String): Single<SearchResponse> =
             interactor.search(query)
-//                    .subscribeOn(Schedulers.io())
 
     class Factory @Inject
     constructor(private val interactor: SearchInteractor) : ViewModelProvider.NewInstanceFactory() {

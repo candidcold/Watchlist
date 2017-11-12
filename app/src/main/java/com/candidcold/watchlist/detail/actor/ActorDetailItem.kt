@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.item_actor_detail.view.*
 
 
 class ActorDetailItem(val actor: ActorResponse) : Item<ViewHolder>() {
-    // TODO: Work on filtering out items without images and stuff from getting here
+
     override fun bind(viewHolder: ViewHolder, position: Int) {
         viewHolder.itemView.item_actor_bio.text = actor.biography.trimEnd()
         viewHolder.itemView.item_actor_name.text = actor.name

@@ -46,24 +46,28 @@ class JobInteractor @Inject constructor(private val client: TmdbClient,
             client.getPopularMovies(BuildConfig.TmdbApiKey)
                     .map { it.results }
                     .flattenAsObservable { it }
+                    .filter { it.poster_path != null }
                     .map { movieRepo.convertEntity(it, AppDatabase.DESCRIPTOR_POPULAR) }
 
     private fun fetchTopRatedMovies(): Observable<Movie> =
             client.getTopRatedMovies(BuildConfig.TmdbApiKey)
                     .map { it.results }
                     .flattenAsObservable { it }
+                    .filter { it.poster_path != null }
                     .map { movieRepo.convertEntity(it, AppDatabase.DESCRIPTOR_TOP_RATED) }
 
     private fun fetchPopularTvShows(): Observable<TvShow> =
             client.getPopularTvShows(BuildConfig.TmdbApiKey)
                     .map { it.results }
                     .flattenAsObservable { it }
+                    .filter { it.poster_path != null }
                     .map { tvRepo.convertEntity(it, AppDatabase.DESCRIPTOR_POPULAR) }
 
     private fun fetchTopRatedTvShows(): Observable<TvShow> =
             client.getTopRatedTvShows(BuildConfig.TmdbApiKey)
                     .map { it.results }
                     .flattenAsObservable { it }
+                    .filter { it.poster_path != null }
                     .map { tvRepo.convertEntity(it, AppDatabase.DESCRIPTOR_TOP_RATED) }
 
 }
