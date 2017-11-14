@@ -36,4 +36,7 @@ class HeaderItem(private val header: String,
 
     override fun getLayout() = R.layout.item_header
 
+    override fun getSpanSize(spanCount: Int, position: Int): Int {
+        return 3 // TODO: Make this "max span size" as a resource
+    }
 }

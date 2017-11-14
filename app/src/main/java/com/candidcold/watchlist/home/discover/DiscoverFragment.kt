@@ -4,7 +4,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.widget.StaggeredGridLayoutManager
+import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -57,7 +57,9 @@ class DiscoverFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val itemView = inflater!!.inflate(R.layout.fragment_discover, container, false)
         itemView.discover_movies_list.adapter = groupieAdapter
-        itemView.discover_movies_list.layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
+        val layoutManager = GridLayoutManager(activity, 3)
+        layoutManager.spanSizeLookup = groupieAdapter.spanSizeLookup
+        itemView.discover_movies_list.layoutManager = layoutManager
         groupieAdapter.add(popularMoviesSection)
         groupieAdapter.add(topRatedMoviesSection)
         groupieAdapter.add(popularShowsSection)

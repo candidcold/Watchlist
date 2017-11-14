@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.GridLayoutManager
 import com.candidcold.watchlist.R
 import com.candidcold.watchlist.WatchApp
 import com.candidcold.watchlist.detail.movie.MovieDetailActivity
@@ -46,19 +46,29 @@ class ActorDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_actor_detail)
         (application as WatchApp).appComponent.inject(this)
 
-        actor_detail_list.adapter = groupAdapter
-        actor_detail_list.layoutManager = LinearLayoutManager(this)
         val id = intent.getIntExtra(EXTRA_ACTOR_ID, 0)
+        setupRecyclerview()
         observe(id)
         setupClickListeners()
     }
 
+    private fun setupRecyclerview() {
+        actor_detail_list.adapter = groupAdapter
+        val layoutManager = GridLayoutManager(this, 3)
+        layoutManager.spanSizeLookup = groupAdapter.spanSizeLookup
+        actor_detail_list.layoutManager = layoutManager
+    }
+
     private fun setupClickListeners() {
-        groupAdapter.setOnItemClickListener { item, _ ->
-            val role = (item as RoleItem).role
-            when(role.media_type) {
-                "movie" -> MovieDetailActivity.start(this, role.id)
-                "tv" -> TvShowDetailActivity.start(this, role.id)
+        groupAdapter.setOnItemClickListener { item, view ->
+            if (item is RoleItem) {
+                val role = item.role
+                when (role.media_type) {
+                    "movie" -> MovieDetailActivity.start(this, role.id)
+                    "tv" -> TvShowDetailActivity.start(this, role.id)
+                }
+            } else if (item is ActorDetailItem) {
+                // TODO: Setup adding to watchlist
             }
         }
     }

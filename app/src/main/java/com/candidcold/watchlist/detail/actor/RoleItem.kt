@@ -28,7 +28,8 @@ class RoleItem(private val type: String,
 
     private fun setupShowRole(viewHolder: ViewHolder) {
         viewHolder.itemView.item_role_content_title.text = role.name
-        viewHolder.itemView.item_role_character_title.text = role.character
+        val character = "as ${role.character}"
+        viewHolder.itemView.item_role_character_title.text = character
         val path = viewHolder.itemView.context.getString(R.string.tmdb_list_poster_base_url) +
                 role.poster_path
         viewHolder.itemView.item_role_content_image.loadFromUrl(path)
@@ -36,9 +37,14 @@ class RoleItem(private val type: String,
 
     private fun setupMovieRole(viewHolder: ViewHolder) {
         viewHolder.itemView.item_role_content_title.text = role.title
-        viewHolder.itemView.item_role_character_title.text = role.character
+        val character = "as ${role.character}"
+        viewHolder.itemView.item_role_character_title.text = character
         val path = viewHolder.itemView.context.getString(R.string.tmdb_list_poster_base_url) +
                 role.poster_path
         viewHolder.itemView.item_role_content_image.loadFromUrl(path)
+    }
+
+    override fun getSpanSize(spanCount: Int, position: Int): Int {
+        return 1
     }
 }

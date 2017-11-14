@@ -12,6 +12,7 @@ import com.candidcold.watchlist.R
 import com.candidcold.watchlist.UpdatingSection
 import com.candidcold.watchlist.WatchApp
 import com.candidcold.watchlist.detail.movie.MovieDetailActivity
+import com.candidcold.watchlist.detail.tv.TvShowDetailActivity
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
 import com.uber.autodispose.kotlin.autoDisposeWith
 import com.xwray.groupie.GroupAdapter
@@ -69,6 +70,7 @@ class WatchlistFragment : Fragment() {
         groupieAdapter.setOnItemClickListener { item, _ ->
             when (item) {
                 is WatchlistMovieItem -> MovieDetailActivity.start(activity, item.movie.id)
+                is WatchlistTvItem -> TvShowDetailActivity.start(activity, item.tvShow.id)
             }
         }
     }

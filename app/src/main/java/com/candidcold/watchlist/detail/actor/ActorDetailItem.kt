@@ -18,4 +18,8 @@ class ActorDetailItem(val actor: ActorResponse) : Item<ViewHolder>() {
     }
 
     override fun getLayout() = R.layout.item_actor_detail
+
+    override fun getSpanSize(spanCount: Int, position: Int): Int {
+        return 3
+    }
 }
