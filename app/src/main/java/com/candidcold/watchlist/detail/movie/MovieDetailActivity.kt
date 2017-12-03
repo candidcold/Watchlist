@@ -11,7 +11,7 @@ import com.candidcold.watchlist.UpdatingSection
 import com.candidcold.watchlist.WatchApp
 import com.candidcold.watchlist.detail.CastItem
 import com.candidcold.watchlist.detail.actor.ActorDetailActivity
-import com.candidcold.watchlist.extensions.loadFromUrl
+import com.candidcold.watchlist.extensions.loadImage
 import com.candidcold.watchlist.network.NetworkCast
 import com.candidcold.watchlist.network.NetworkMovie
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
@@ -127,7 +127,7 @@ class MovieDetailActivity : AppCompatActivity() {
         detail_movie_toolbar.subtitle = movie.release_date
         detail_movie_overview.text = movie.overview
         val path = getString(R.string.tmdb_list_backdrop_base_url) + movie.backdrop_path
-        detail_movie_backdrop_image.loadFromUrl(path)
+        detail_movie_backdrop_image.loadImage(path)
 
         detail_fab.isEnabled = true
         detail_fab.setOnClickListener {

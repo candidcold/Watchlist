@@ -3,7 +3,7 @@ package com.candidcold.watchlist.network
 
 data class NetworkMovie(val imdb_id: String?,
                         val id: Int,
-                        val genres: List<Genre>,
+                        val genres: List<NetworkGenre>,
                         val overview: String,
                         val backdrop_path: String?,
                         val poster_path: String?,
@@ -13,5 +13,5 @@ data class NetworkMovie(val imdb_id: String?,
                         val tagline: String,
                         val title: String)
 
-data class Genre(val id: Int,
-                 val name: String)
+data class NetworkGenre(val id: Int,
+                        val name: String)

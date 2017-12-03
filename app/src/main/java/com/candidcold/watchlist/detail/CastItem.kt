@@ -1,7 +1,7 @@
 package com.candidcold.watchlist.detail
 
 import com.candidcold.watchlist.R
-import com.candidcold.watchlist.extensions.loadFromUrlCircular
+import com.candidcold.watchlist.extensions.loadCircularImage
 import com.candidcold.watchlist.network.NetworkCast
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
@@ -20,7 +20,7 @@ class CastItem(val castMember: NetworkCast) : Item<ViewHolder>() {
         val baseUrl = context.getString(R.string.tmdb_cast_member_base_url)
         val path: String = baseUrl + castMember.profile_path
 
-        viewHolder.itemView.item_cast_image.loadFromUrlCircular(path)
+        viewHolder.itemView.item_cast_image.loadCircularImage(path)
     }
 
 }

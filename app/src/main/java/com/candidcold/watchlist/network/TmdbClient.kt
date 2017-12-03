@@ -53,4 +53,10 @@ interface TmdbClient {
     @GET("search/multi")
     fun search(@Query("query") userQuery: String,
                @Query("api_key") apiKey: String): Single<SearchResponse>
+
+    @GET("discover/movie")
+    fun discoverMovies(): Single<MovieListResponse>
+
+    @GET("discover/tv")
+    fun discoverTvShows(): Single<TvListResponse>
 }

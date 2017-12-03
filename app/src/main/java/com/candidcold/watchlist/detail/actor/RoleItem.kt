@@ -1,7 +1,7 @@
 package com.candidcold.watchlist.detail.actor
 
 import com.candidcold.watchlist.R
-import com.candidcold.watchlist.extensions.loadFromUrl
+import com.candidcold.watchlist.extensions.loadImage
 import com.candidcold.watchlist.network.NetworkActorCastCredit
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
@@ -32,7 +32,7 @@ class RoleItem(private val type: String,
         viewHolder.itemView.item_role_character_title.text = character
         val path = viewHolder.itemView.context.getString(R.string.tmdb_list_poster_base_url) +
                 role.poster_path
-        viewHolder.itemView.item_role_content_image.loadFromUrl(path)
+        viewHolder.itemView.item_role_content_image.loadImage(path)
     }
 
     private fun setupMovieRole(viewHolder: ViewHolder) {
@@ -41,7 +41,7 @@ class RoleItem(private val type: String,
         viewHolder.itemView.item_role_character_title.text = character
         val path = viewHolder.itemView.context.getString(R.string.tmdb_list_poster_base_url) +
                 role.poster_path
-        viewHolder.itemView.item_role_content_image.loadFromUrl(path)
+        viewHolder.itemView.item_role_content_image.loadImage(path)
     }
 
     override fun getSpanSize(spanCount: Int, position: Int): Int {

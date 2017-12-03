@@ -10,6 +10,7 @@ data class NetworkListMovie(val poster_path: String?,
                             val overview: String,
                             val release_date: String,
                             val genre_ids: List<Int>,
+                            val popularity: Double,
                             val id: Int,
                             val title: String,
                             val backdrop_path: String?)

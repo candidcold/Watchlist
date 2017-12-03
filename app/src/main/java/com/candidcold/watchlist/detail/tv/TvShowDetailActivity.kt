@@ -11,7 +11,7 @@ import com.candidcold.watchlist.UpdatingSection
 import com.candidcold.watchlist.WatchApp
 import com.candidcold.watchlist.detail.CastItem
 import com.candidcold.watchlist.detail.actor.ActorDetailActivity
-import com.candidcold.watchlist.extensions.loadFromUrl
+import com.candidcold.watchlist.extensions.loadImage
 import com.candidcold.watchlist.network.NetworkCast
 import com.candidcold.watchlist.network.TvResponse
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
@@ -127,7 +127,7 @@ class TvShowDetailActivity : AppCompatActivity() {
         tv_show_detail_toolbar.subtitle = "${tvShow.number_of_seasons} seasons"
         tv_show_detail_overview.text = tvShow.overview
         val path = getString(R.string.tmdb_list_backdrop_base_url) + tvShow.backdrop_path
-        tv_show_detail_backdrop_image.loadFromUrl(path)
+        tv_show_detail_backdrop_image.loadImage(path)
 
         tv_show_detail_fab.isEnabled = true
         tv_show_detail_fab.setOnClickListener {

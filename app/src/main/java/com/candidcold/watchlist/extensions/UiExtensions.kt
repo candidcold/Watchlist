@@ -7,14 +7,14 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.BitmapImageViewTarget
 
 
-fun ImageView.loadFromUrl(path: String) {
+fun ImageView.loadImage(path: String) {
     Glide.with(this.context)
             .load(path)
             .crossFade()
             .into(this)
 }
 
-fun ImageView.loadFromUrlCircular(path: String) {
+fun ImageView.loadCircularImage(path: String) {
     Glide.with(this.context)
             .load(path)
             .asBitmap()
@@ -24,7 +24,7 @@ fun ImageView.loadFromUrlCircular(path: String) {
                 override fun setResource(resource: Bitmap) {
                     val circularBitmapDrawable = RoundedBitmapDrawableFactory.create(context.resources, resource)
                     circularBitmapDrawable.isCircular = true
-                    this@loadFromUrlCircular.setImageDrawable(circularBitmapDrawable)
+                    this@loadCircularImage.setImageDrawable(circularBitmapDrawable)
                 }
             })
 }

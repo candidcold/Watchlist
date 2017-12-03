@@ -1,8 +1,8 @@
 package com.candidcold.watchlist.search
 
 import com.candidcold.watchlist.R
-import com.candidcold.watchlist.extensions.loadFromUrl
-import com.candidcold.watchlist.extensions.loadFromUrlCircular
+import com.candidcold.watchlist.extensions.loadCircularImage
+import com.candidcold.watchlist.extensions.loadImage
 import com.candidcold.watchlist.network.SearchResult
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
@@ -28,7 +28,7 @@ class SearchResultItem(val result: SearchResult) : Item<ViewHolder>(){
                 viewHolder.itemView.context.getColor(android.R.color.holo_green_light))
         val path = viewHolder.itemView.context.getString(R.string.tmdb_list_poster_base_url) +
                 result.poster_path
-        viewHolder.itemView.item_search_result_image.loadFromUrl(path)
+        viewHolder.itemView.item_search_result_image.loadImage(path)
     }
 
     private fun setupMovieResult(viewHolder: ViewHolder) {
@@ -38,7 +38,7 @@ class SearchResultItem(val result: SearchResult) : Item<ViewHolder>(){
                 viewHolder.itemView.context.getColor(android.R.color.holo_blue_light))
         val path = viewHolder.itemView.context.getString(R.string.tmdb_list_poster_base_url) +
                 result.poster_path
-        viewHolder.itemView.item_search_result_image.loadFromUrl(path)
+        viewHolder.itemView.item_search_result_image.loadImage(path)
     }
 
     private fun setupActorResult(viewHolder: ViewHolder) {
@@ -48,6 +48,6 @@ class SearchResultItem(val result: SearchResult) : Item<ViewHolder>(){
                 viewHolder.itemView.context.getColor(android.R.color.holo_red_light))
         val path = viewHolder.itemView.context.getString(R.string.tmdb_cast_member_base_url) +
                 result.profile_path
-        viewHolder.itemView.item_search_result_image.loadFromUrlCircular(path)
+        viewHolder.itemView.item_search_result_image.loadCircularImage(path)
     }
 }
